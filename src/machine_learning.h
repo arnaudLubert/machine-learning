@@ -7,8 +7,8 @@
 
 #ifndef MACHINE_LEARNING
 #define MACHINE_LEARNING
-#define BIAS_RANGE 6   // from [-3 ; 3]
-#define WEIGHT_RANGE 6 // from [-3 ; 3]
+#define BIAS_RANGE 1   // from [-1.5 ; 1.5]
+#define WEIGHT_RANGE 4 // from [-1.5 ; 1.5]
 
 #include <math.h>
 #include <time.h>
@@ -26,6 +26,7 @@ typedef struct neural_network_s {
     float *expectation;
     float **errors;
     float **errors_temp;
+    float ***errors_weight;
     float *costs;
     float **cost_average;
     float cost;
@@ -39,21 +40,23 @@ int ia_read_file(neural_network_t *);
 void ia_write_file(neural_network_t *);
 void free_all(neural_network_t *);
 void print_activations(neural_network_t *);
+void print_forward_result(neural_network_t *);
 void print_bias(neural_network_t *);
 void print_weights(neural_network_t *);
 void print_costs(neural_network_t *);
-void randomize(neural_network_t *);
+void ia_randomize(neural_network_t *);
 float sigmoid(float);
 float sigmoid_derivative(float);
 float ai_z(neural_network_t *, int, int);
 
+void ai_train(neural_network_t *);
 void ia_compute_cost(neural_network_t *);
 void final_cost(neural_network_t *);
 void ia_forward_propagation(neural_network_t *);
 void ia_backward_propagation(neural_network_t *);
 void ia_adjustment(neural_network_t *);
 
-void set_inputs(neural_network_t *);
+void set_input(neural_network_t *);
 void set_expectation(neural_network_t *);
 
 #endif
